@@ -39,10 +39,44 @@ export class LoginComponent implements OnInit {
   // login-using event binding
   // ---------------------------
 
-  // login(){
+  login(){
+    // alert("Login clicked..!!")
+  var acno= this.acno
+  var pswd=this.pswd
+  var database=this.database
+  console.log(acno);
+  
+  if(acno in database)
+  {
+    if(pswd == database[acno]["password"])
+    {
+      alert("Login Succesfull..!")
+
+
+    }
+    else
+    {
+      alert("Incorrect password...!")
+    }
+  
+
+  }
+  else
+  {
+
+    alert("User does not exist....!")
+  }
+  
+  }
+// -----------------------------------------------------
+  // login using template referencing variable
+  // -------------------------------------------------
+  // login(a:any,p:any){
+
+
   //   // alert("Login clicked..!!")
-  // var acno= this.acno
-  // var pswd=this.pswd
+  // var acno= a.value
+  // var pswd=p.value
   // var database=this.database
   // if(acno in database)
   // {
@@ -65,37 +99,6 @@ export class LoginComponent implements OnInit {
   // }
   
   // }
-// -----------------------------------------------------
-  // login using template referencing variable
-  // -------------------------------------------------
-  login(a:any,p:any){
-
-
-    // alert("Login clicked..!!")
-  var acno= a.value
-  var pswd=p.value
-  var database=this.database
-  if(acno in database)
-  {
-    if(pswd == database[acno]["password"])
-    {
-      alert("Login Succesfull..!")
-
-
-    }
-    else
-    {
-      alert("Incorrect password...!")
-    }
-  
-
-  }
-  else
-  {
-    alert("User does not exist....!")
-  }
-  
-  }
 
 
 
