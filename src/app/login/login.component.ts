@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   vision="The Future Is Here...."
   acnum="Account number please...!"
   acno=""
@@ -20,24 +22,26 @@ export class LoginComponent implements OnInit {
   
   }
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
 
-  acnoChange(event:any){
+  //****** one way binding *******
+
+  // acnoChange(event:any){
   
     
     
-    this.acno=event.target.value
-  }
+  //   this.acno=event.target.value
+  // }
 
-  pswdChange(event: any){
-    this.pswd=event.target.value
-  }
+  // pswdChange(event: any){
+  //   this.pswd=event.target.value
+  // }
 
-  // login-using event binding
-  // ---------------------------
+  //*********** login-using event binding***********
+  // -------------------------------------------------
 
   login(){
     // alert("Login clicked..!!")
@@ -51,6 +55,7 @@ export class LoginComponent implements OnInit {
     if(pswd == database[acno]["password"])
     {
       alert("Login Succesfull..!")
+      this.router.navigateByUrl("dashboard")
 
 
     }
