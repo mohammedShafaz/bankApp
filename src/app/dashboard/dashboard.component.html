@@ -1,1 +1,96 @@
-<p style="color: white;">dashboard works!</p>
+<!-- As a link -->
+<nav class="navbar navbar-light bg-dark ">
+    <a class="navbar-brand  " href="#" style="color:rgb(85, 98, 237);"><b>&#169; HAFC Bank Pvt.Ltd </b></a>
+    <span class="quote text-light">Giving you freedom...</span>
+</nav>
+<br>
+
+<h2 style="color:white; margin-bottom: 10px; text-align: center;">Welcome User..</h2>
+
+<div class="container col-md-6 mt-0">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+
+            <div class="card-header">
+                <h3 class="text-center">Deposit Money</h3>
+
+            </div>
+            <div class="card-body">
+
+                <form (ngSubmit)="deposit()">
+
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+
+                        <input type="text" name="acno1" [(ngModel)]="d_acno" class="form-control" placeholder="Enter Account Number" id="deposit_acno" required>
+
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+
+                        <input type="password" name="pswd1" [(ngModel)]="d_pswd" class="form-control" placeholder="Enter password" id="deposit_pswd" required>
+
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text" name="amt" [(ngModel)]="d_amount" class="form-control" placeholder="Enter Amount" id="deposit_amt" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="deposit" class="btn float-right login_btn " style="width:50%">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container col-md-6 mt-0">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+
+            <div class="card-header">
+                <h3 class="text-center">Withdraw Money</h3>
+
+            </div>
+            <div class="card-body">
+
+                <form (ngSubmit)="withdraw()">
+
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+
+                        <input type="text" name="acno1" [(ngModel)]="w_acno" class="form-control" placeholder="Enter Account Number" id="withdraw_acno" required>
+
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+
+                        <input type="password" name="pswd1" [(ngModel)]="w_pswd" class="form-control" placeholder="Enter password" id="withdraw_pswd" required>
+
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text" name="amt" [(ngModel)]="w_amount" class="form-control" placeholder="Enter Amount" id="withdraw_amt" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="withdraw" class="btn float-right login_btn " style="width:50%">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

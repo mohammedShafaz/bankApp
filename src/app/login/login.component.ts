@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -15,95 +16,30 @@ export class LoginComponent implements OnInit {
 
   //database
 
-  database:any={
-    1000:{acno:1000,uname:"shafaz",password:1000,balance:5000},
-    1001:{acno:1001,uname:"rachel",password:1001,balance:4000},
-    1002:{acno:1002,uname:"milan",password:1002,balance:7000},
-  
-  }
 
-  constructor(private router:Router) { }
+
+  constructor(private router:Router,private db:DataService) { }
 
   ngOnInit(): void {
   }
 
-  //****** one way binding *******
 
-  // acnoChange(event:any){
-  
-    
-    
-  //   this.acno=event.target.value
-  // }
-
-  // pswdChange(event: any){
-  //   this.pswd=event.target.value
-  // }
-
-  //*********** login-using event binding***********
-  // -------------------------------------------------
 
   login(){
-    // alert("Login clicked..!!")
+    // user entered acno n pswd
   var acno= this.acno
   var pswd=this.pswd
-  var database=this.database
-  console.log(acno);
+
+
+const result=this.db.login(acno,pswd)
+if(result){
+  alert("LogIn Successfull..!!")
+  this.router.navigateByUrl("dashboard")
+}
   
-  if(acno in database)
-  {
-    if(pswd == database[acno]["password"])
-    {
-      alert("Login Succesfull..!")
-      this.router.navigateByUrl("dashboard")
-
-
-    }
-    else
-    {
-      alert("Incorrect password...!")
-    }
-  
-
-  }
-  else
-  {
-
-    alert("User does not exist....!")
-  }
+ 
   
   }
-// -----------------------------------------------------
-  // login using template referencing variable
-  // -------------------------------------------------
-  // login(a:any,p:any){
-
-
-  //   // alert("Login clicked..!!")
-  // var acno= a.value
-  // var pswd=p.value
-  // var database=this.database
-  // if(acno in database)
-  // {
-  //   if(pswd == database[acno]["password"])
-  //   {
-  //     alert("Login Succesfull..!")
-
-
-  //   }
-  //   else
-  //   {
-  //     alert("Incorrect password...!")
-  //   }
-  
-
-  // }
-  // else
-  // {
-  //   alert("User does not exist....!")
-  // }
-  
-  // }
 
 
 
