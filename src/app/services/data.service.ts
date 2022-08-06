@@ -30,7 +30,7 @@ export class DataService {
         password,
         balance:0
       }
-      console.log(database);
+      // console.log(database);
       
       return true
     }

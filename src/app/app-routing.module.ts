@@ -14,6 +14,9 @@ const routes: Routes = [
   // dashboard path
 
   {path:'dashboard',component:DashboardComponent},
+  
+  //  register path
+  
   {path:'register',component:RegisterComponent},
 ];
 

@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
 
     const result=this.ds.withdraw(w_acno,w_pswd,w_amount)
     if(result){
-      alert(w_amount+" is debitted from your Account ,Nwe Balance is : " +result)
+      alert(w_amount+" is debitted from your Account ,New Balance is : " +result)
     }
 
   }
