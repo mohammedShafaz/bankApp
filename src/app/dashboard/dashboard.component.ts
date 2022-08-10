@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -14,37 +15,62 @@ export class DashboardComponent implements OnInit {
  w_acno=""
  w_pswd=""
  w_amount=""
+usr:any
+ 
+//  ****** deposit form*****
+depositForm=this.fb.group({
+  d_acno:['',[Validators.required,Validators.pattern('[0-9]*')]],
+  d_pswd:['',[Validators.required,Validators.pattern('[0-9a-zA_Z]*')]],
+  d_amount:['',[Validators.required,Validators.pattern('[0-9]*')]]
+})
+
+// ***** withdraw Form******
+withdrawForm=this.fb.group({
+  w_acno:['',[Validators.required,Validators.pattern('[0-9]*')]],
+  w_pswd:['',[Validators.required,Validators.pattern('[0-9a-zA_Z]*')]],
+  w_amount:['',[Validators.required,Validators.pattern('[0-9]*')]]
+
+})
 
 
-  constructor(private ds:DataService) { }
+  constructor(private ds:DataService,private fb:FormBuilder) { 
+    this.usr=this.ds.currentUsr
+  }
 
   ngOnInit(): void {
   }
+
  
   deposit(){
 
  
-  var d_acno= this.d_acno
-  var d_pswd=this.d_pswd
-  var d_amount=this.d_amount
+  var d_acno= this.depositForm.value.d_acno
+  var d_pswd=this.depositForm.value.d_pswd
+  var d_amount=this.depositForm.value.d_amount
   // calling function deposit in dataService
   const result=this.ds.deposit(d_acno,d_pswd,d_amount)
   if(result){
     alert(d_amount+ " successfully creditted ..,New balance is : " +result)
   }
+  else{
+    alert("Invalid Form")
+  }
 
 
   }
   withdraw(){
-    var w_acno=this.w_acno
-    var w_pswd=this.w_pswd
-    var w_amount=this.w_amount
+    var w_acno=this.withdrawForm.value.w_acno
+    var w_pswd=this.withdrawForm.value.w_pswd
+    var w_amount=this.withdrawForm.value.w_amount
     
       // calling function withdraw in dataService
 
     const result=this.ds.withdraw(w_acno,w_pswd,w_amount)
     if(result){
       alert(w_amount+" is debitted from your Account ,New Balance is : " +result)
+    }
+    else{
+      alert("Invalid Form")
     }
 
   }

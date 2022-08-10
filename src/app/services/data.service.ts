@@ -11,6 +11,7 @@ export class DataService {
     1002:{acno:1002,uname:"milan",password:1002,balance:7000},
   
   }
+  currentUsr:any
 
   constructor() { }
 
@@ -47,6 +48,7 @@ export class DataService {
   {
     if(pswd == database[acno]["password"])
     {
+      this.currentUsr=database[acno]["uname"]
       // already exist in db
       return true
 
