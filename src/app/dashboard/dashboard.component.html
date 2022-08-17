@@ -2,10 +2,13 @@
 <nav class="navbar navbar-light bg-dark ">
     <a class="navbar-brand  " href="#" style="color:rgb(85, 98, 237);"><b>&#169; HAFC Bank Pvt.Ltd </b></a>
     <span class="quote text-light">Giving you freedom...</span>
+    <button class="btn btn-danger" (click)="logout()" style="float: right;">Log Out</button>
+
 </nav>
 <br>
 
-<h2 style="color:white; margin-bottom: 10px; text-align: left;">Welcome {{usr}}..</h2>
+<h2 style="color:white; margin-bottom: 10px; text-align: left;">Welcome {{usr}}</h2>
+<a routerLink="/transaction" style="font-size: 25px;"> Transaction History</a><br><br>
 
 <div class="container col-md-6 mt-0">
     <div class="d-flex justify-content-center h-100">

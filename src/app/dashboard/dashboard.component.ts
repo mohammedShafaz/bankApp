@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -33,11 +34,15 @@ withdrawForm=this.fb.group({
 })
 
 
-  constructor(private ds:DataService,private fb:FormBuilder) { 
+  constructor(private ds:DataService,private fb:FormBuilder,private router:Router) { 
     this.usr=this.ds.currentUsr
   }
 
   ngOnInit(): void {
+    if(!localStorage.getItem("currentAcno")){
+      alert("Please Log In....!")
+      this.router.navigateByUrl("")
+    }
   }
 
  
@@ -73,6 +78,13 @@ withdrawForm=this.fb.group({
       alert("Invalid Form")
     }
 
+  
+  }
+  // log out
+  logout(){
+    localStorage.removeItem("currentUsr")
+    localStorage.removeItem("currentAcno")
+    this.router.navigateByUrl("")
   }
 
 }
