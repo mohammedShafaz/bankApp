@@ -1,21 +1,28 @@
 <!-- As a link -->
 <nav class="navbar navbar-light bg-dark ">
     <a class="navbar-brand  " href="#" style="color:rgb(85, 98, 237);"><b>&#169; HAFC Bank Pvt.Ltd </b></a>
-    <span class="quote text-light">Giving you freedom...</span>
-    <button class="btn btn-danger" (click)="logout()" style="float: right;">Log Out</button>
+    <span class="quote text-light" style="float: right;">Giving you freedom...</span>
+    <button class="btn btn-warning" (click)="logout()" style="float: right;">Log Out</button>
 
 </nav>
 <br>
 
-<h2 style="color:white; margin-bottom: 10px; text-align: left;">Welcome {{usr}}</h2>
+<h2 appHighlight style="color:white; margin-bottom: 10px; text-align: left;">Welcome {{usr}}</h2>
+<p appHighlight style="color: white;"> logIn details :{{loginDate|date:'medium'|uppercase}}</p>
 <a routerLink="/transaction" style="font-size: 25px;"> Transaction History</a><br><br>
+<button class="btn btn-danger" style="float: right;" (click)="deletefromParent()">Delete Account</button>
+<br><br>
+<!-- child selector -->
 
-<div class="container col-md-6 mt-0">
+<app-deleteconfirm [item]="acno" (onCancel)="onCancel()" (onDelete)="onDelete($event)"></app-deleteconfirm>
+
+
+<div class="container col-md-6 mt-0" [ngClass]="acno? 'style1':''">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
 
             <div class="card-header">
-                <h3 class="text-center">Deposit Money</h3>
+                <h3 class="text-center" appHighlight>Deposit Money</h3>
 
             </div>
             <div class="card-body">
@@ -60,12 +67,12 @@
     </div>
 </div>
 
-<div class="container col-md-6 mt-0">
+<div class="container col-md-6 mt-0" [ngClass]="acno? 'style1':''">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
 
             <div class="card-header">
-                <h3 class="text-center">Withdraw Money</h3>
+                <h3 class="text-center" appHighlight>Withdraw Money</h3>
 
             </div>
             <div class="card-body">

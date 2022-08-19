@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
  w_pswd=""
  w_amount=""
 usr:any
+
+acno:any
  
 //  ****** deposit form*****
 depositForm=this.fb.group({
@@ -33,9 +35,11 @@ withdrawForm=this.fb.group({
 
 })
 
+loginDate:any
 
   constructor(private ds:DataService,private fb:FormBuilder,private router:Router) { 
     this.usr=this.ds.currentUsr
+    this.loginDate=new Date()
   }
 
   ngOnInit(): void {
@@ -80,11 +84,25 @@ withdrawForm=this.fb.group({
 
   
   }
+
+  // deletefromParent()
+
+  deletefromParent(){
+
+    this.acno=JSON.parse(localStorage.getItem("currentAcno")||'')
+
+  }
   // log out
   logout(){
     localStorage.removeItem("currentUsr")
     localStorage.removeItem("currentAcno")
     this.router.navigateByUrl("")
+  }
+  onCancel(){
+    this.acno=""
+  }
+  onDelete(event:any){
+    alert("delete Account "+event)
   }
 
 }
