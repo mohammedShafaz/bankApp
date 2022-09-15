@@ -1,7 +1,12 @@
 import { JsonPipe } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { TransactionComponent } from '../transaction/transaction.component';
+
+const option={
+  headers: new HttpHeaders() 
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +22,7 @@ export class DataService {
   currentacno:any
 
 
-  constructor() {
+  constructor(private http:HttpClient) {
     this.getDetails()
    }
 
@@ -51,160 +56,102 @@ export class DataService {
   // ********** register *************
 
   register(uname:any,acno:any,password:any){
-    let database=this.database
-    if(acno in database){
-      // already existing 
-      return  false
+    // request body
+   const data={
+    uname,
+    acno,
+    password
+   }
+  //  register API call
+   return this.http.post("http://localhost:3000/register",data)
 
-    }else{
-      // add details into db
-      database[acno]={
-        acno,
-        uname,
-        password,
-        balance:0,
-        transaction:[]
-        
-      }
-      // console.log(database);
-      this.saveDetails()
-      
-      return true
-    }
   }
+
 
   // *************log in***************
 
   login(acno:any,pswd:any){
+
+// req body
+    const data={
+      acno,
+      pswd
+    }
+     //  login API call
+     return this.http.post("http://localhost:3000/login",data)
+  
  
-  let database=this.database
-  // console.log(acno);
-  
-  if(acno in database)
-  {
-    if(pswd == database[acno]["password"])
-    {
-      this.currentUsr=database[acno]["uname"]
-      this.currentacno=acno
-      // already exist in db
-      this.saveDetails()
-
-      return true
-
-
-    }
-    else
-    {
-      alert("Incorrect password...!")
-      return false
-    }
-  
-
   }
-  else
-  {
 
-    alert("User does not exist....!")
-    return false
+  // req header
+  getOption(){
+    // to fetch token
+    const token=JSON.parse(localStorage.getItem('token')||'')
+
+    // create http headers
+    let headers= new HttpHeaders()
+    if(token){
+      headers=headers.append('x-access-token',token)
+      option.headers=headers
+
+    }    
+    return option
   }
   
-  }
 
   //************ deposit********************
 
 
 
+  
   deposit(acno:any,pswd:any,amt:any){
 
-    let database=this.database
-    var amount=parseInt(amt)
-    
+    const data={
+      acno,
+      pswd,
+      amt
+    }
   
-    if(acno in database){
-      if(pswd == database[acno]["password"]){
-        database[acno]["balance"]+=amount
-
-        database[acno]["transaction"].push({
-       
-          type:"CREDIT",
-          Amount:amount
-          
-         
-        })
-        // console.log(database);
-        this.saveDetails()
-
-        
-        return database[acno]["balance"]
-
-      }
-      else{
-        alert("Incorrect password...!")
-        return false
-      }
-    }
-    else{
-      alert("User does not exist....!")
-    return false
-
-    }
+    // deposit API call
+    return this.http.post("http://localhost:3000/deposit",data,this.getOption())
 
   }
 
-  //************withdraw***************
+  //************withdraw*******API********
   withdraw(acno:any,pswd:any,amt:any){
 
-    let database=this.database
-    var amount=parseInt(amt)
-    
-    if(acno in database){
-      if(pswd == database[acno]["password"]){
-        if(amount<=database[acno]["balance"]){
-          database[acno]["balance"]-=amount
-          
-          database[acno]["transaction"].push({
-         
-            type:"DEBIT",
-            Amount:amount
-            
-           
-          })
-          // console.log(database);
-          this.saveDetails()
-
-          
-          return database[acno]["balance"]
-
-        }
-        else{
-          alert("Insufficient Balance")
-          return false
-        }
-       
-
-      }
-      else{
-        alert("Incorrect password...!")
-        return false
-      }
+    const data={
+      acno,
+      pswd,
+      amt
     }
-    else{
-      alert("User does not exist....!")
-    return false
-
-    }
-
+    return this.http.post("http://localhost:3000/withdraw",data,this.getOption())
 
 
   }
 
 
-  // function transaction
+  // API transaction
 transaction(acno:any){
-  return this.database[acno].transaction
+  const data={
+    acno,
+  }
+   
+  return this.http.post("http://localhost:3000/transaction",data,this.getOption())
+
+
+}
+// API DELETE ACC
+
+onDelete(acno:any){
+  return this.http.delete("http://localhost:3000/onDelete/"+acno,this.getOption())
+
+  
+}
+
 
 }
   
-}
+
 
 

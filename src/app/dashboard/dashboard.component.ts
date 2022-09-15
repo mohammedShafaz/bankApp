@@ -38,15 +38,15 @@ withdrawForm=this.fb.group({
 loginDate:any
 
   constructor(private ds:DataService,private fb:FormBuilder,private router:Router) { 
-    this.usr=this.ds.currentUsr
+    this.usr=JSON.parse(localStorage.getItem('currentUsr')||'')
     this.loginDate=new Date()
   }
 
   ngOnInit(): void {
-    if(!localStorage.getItem("currentAcno")){
-      alert("Please Log In....!")
-      this.router.navigateByUrl("")
-    }
+    // if(!localStorage.getItem("currentAcno")){
+    //   alert("Please Log In....!")
+    //   this.router.navigateByUrl("")
+    // }
   }
 
  
@@ -57,13 +57,18 @@ loginDate:any
   var d_pswd=this.depositForm.value.d_pswd
   var d_amount=this.depositForm.value.d_amount
   // calling function deposit in dataService
-  const result=this.ds.deposit(d_acno,d_pswd,d_amount)
-  if(result){
-    alert(d_amount+ " successfully creditted ..,New balance is : " +result)
-  }
-  else{
-    alert("Invalid Form")
-  }
+  this.ds.deposit(d_acno,d_pswd,d_amount)
+  .subscribe((result:any)=>{
+
+    if(result){
+      alert(result.message)
+    }
+  },
+  (result)=>{
+    alert(result.error.message)
+  })
+  
+  
 
 
   }
@@ -74,14 +79,20 @@ loginDate:any
     
       // calling function withdraw in dataService
 
-    const result=this.ds.withdraw(w_acno,w_pswd,w_amount)
-    if(result){
-      alert(w_amount+" is debitted from your Account ,New Balance is : " +result)
-    }
-    else{
-      alert("Invalid Form")
-    }
+    this.ds.withdraw(w_acno,w_pswd,w_amount)
+    .subscribe((result:any)=>{
+      if(result){
+        alert(result.message)
 
+      }
+
+    },
+    (result)=>{
+      alert(result.error.message)
+    }
+    )
+    
+   
   
   }
 
@@ -89,20 +100,34 @@ loginDate:any
 
   deletefromParent(){
 
-    this.acno=JSON.parse(localStorage.getItem("currentAcno")||'')
+    this.acno=JSON.parse(localStorage.getItem("currentacno")||'')
 
   }
   // log out
   logout(){
     localStorage.removeItem("currentUsr")
-    localStorage.removeItem("currentAcno")
+    localStorage.removeItem("currentacno")
     this.router.navigateByUrl("")
   }
   onCancel(){
     this.acno=""
   }
   onDelete(event:any){
-    alert("delete Account "+event)
+    this.ds.onDelete(event)
+    .subscribe((result:any)=>{
+      if(result){
+        alert(result.message)
+        this.router.navigateByUrl("")
+      }
+    },
+    (result:any)=>{
+      alert(result.error.message)
+    }
+    )
+   
+  }
+  transactionHistory(){
+    this.router.navigateByUrl('transaction')
   }
 
 }

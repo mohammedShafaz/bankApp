@@ -9,12 +9,14 @@
 
 <h2 appHighlight style="color:white; margin-bottom: 10px; text-align: left;">Welcome {{usr}}</h2>
 <p appHighlight style="color: white;"> logIn details :{{loginDate|date:'medium'|uppercase}}</p>
-<a routerLink="/transaction" style="font-size: 25px;"> Transaction History</a><br><br>
+<button class="btn btn-warning" style="float: right;" (click)="transactionHistory()">Transaction History</button><br><br>
 <button class="btn btn-danger" style="float: right;" (click)="deletefromParent()">Delete Account</button>
 <br><br>
 <!-- child selector -->
 
 <app-deleteconfirm [item]="acno" (onCancel)="onCancel()" (onDelete)="onDelete($event)"></app-deleteconfirm>
+<!-- animation  Demo -->
+<!-- <app-animation-demo></app-animation-demo> -->
 
 
 <div class="container col-md-6 mt-0" [ngClass]="acno? 'style1':''">
